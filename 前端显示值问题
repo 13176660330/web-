@@ -1,1 +1,25 @@
-
+<el-form-item label="毒品分类" style="-webkit-flex: 1;">
+            <el-select class="filter-item" v-model="listQuery.dType" placeholder="请选择">
+              <el-option label="传统" value="1" />
+              <el-option label="新型" value="2" />
+            </el-select>
+          </el-form-item>
+handleUpdate(row) {
+        selectDetailByXh(row.xh).then(reponse => {
+          if (!reponse.data) {
+            this.$message.error('查询失败')
+          } else {
+            // this.dialogFormVisibleDetail = true
+            this.listQuery = reponse.data
+            if (this.listQuery.dType == 1) {
+              this.listQuery.dType = '传统'
+            }
+            if (this.listQuery.dType == 2) {
+              this.listQuery.dType = '新型'
+            }
+          }
+          this.relationTotals = response.data.total
+          // this.listLoading = false;
+        });
+      },
+   数据库中数值为1,2.在前台中转化为汉字显示
